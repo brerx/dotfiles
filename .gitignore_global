@@ -1,0 +1,10 @@
+*.DS_Store
+*.swp
+*.swo
+*.swn
+c_cpp_properties.json
+settings.json
+launch.json
+*.sln
+*.vscode
+tags

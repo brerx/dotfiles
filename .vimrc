@@ -17,7 +17,7 @@ set smartindent
 set expandtab
 set list
 set listchars=""
-set list listchars=tab:»·,trail:·
+set list listchars=trail:·
 set pastetoggle=<f5> " if pasting with mouse, press F5 to stop autoindent
 
 " speed up scrolling
@@ -183,3 +183,36 @@ highlight SpecialKey ctermbg=none ctermfg=238
 au! BufRead,BufNewFile */*.cpp setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
 au! BufRead,BufNewFile */*.hpp setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
 au! BufRead,BufNewFile */*.h setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
+
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Change Diffcolors
+fun! SetDiffColors()
+  highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
+  highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
+  highlight DiffChange cterm=bold ctermfg=black ctermbg=DarkBlue
+  highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
+endfun
+
+autocmd FilterWritePre * call SetDiffColors()
+
+" Type // to search for visually selected text
+vnoremap // y/<C-R>"<CR>
+
+" Run currently open RSpec test file
+map <Leader>rf :w<CR>:!bundle exec rspec % --format documentation<CR>
+          
+" Run current RSpec test
+" RSpec can determine the right test to run as long as the cursor is somewhere within the test
+map <Leader>rl :w<CR>:exe "!bundle exec rspec %" . ":" . line(".")<CR>
+
+" Run all RSpec tests
+map <Leader>rt :w<CR>:!bundle exec rspec --format documentation<CR>

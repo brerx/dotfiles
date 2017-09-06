@@ -7,6 +7,9 @@
 eval "$(rbenv init -)"
 export EDITOR=vim
 
+# restore C-a and C-e for moving on line
+bindkey -e
+
 export DATABASE_URL="postgres://postgres:@localhost:5432"
 
 # Source Prezto.

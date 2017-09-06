@@ -20,6 +20,12 @@ set listchars=""
 set list listchars=tab:»·,trail:·
 set pastetoggle=<f5> " if pasting with mouse, press F5 to stop autoindent
 
+" speed up scrolling
+set lazyredraw
+set ttyfast
+set regexpengine=1
+set nofoldenable
+
 set hlsearch
 set incsearch
 set ignorecase

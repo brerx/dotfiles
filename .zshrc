@@ -31,7 +31,8 @@ alias bertest="bundle exec rake test"
 alias src="cd ~/prj/source/"
 alias vimbash="vim ~/.bash_profile"
 alias vimrc="vim ~/.vimrc"
-alias vimz="vim ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
+alias tmuxconf="vim ~/.tmux.conf"
 alias vimprezto="vim ~/.zprestorc"
 # alias servant="~/servant"
 # alias vimserv="vim ~/servant"
@@ -66,3 +67,30 @@ prompt paradox
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
+
+# Tmux {{{
+# Makes creating a new tmux session (with a specific name) easier
+function tmuxopen() {
+  tmux attach -t $1
+}
+
+# Makes creating a new tmux session (with a specific name) easier
+function tmuxnew() {
+  tmux new -s $1
+}
+
+# Makes deleting a tmux session easier
+function tmuxkill() {
+  tmux kill-session -t $1
+}
+# }}}
+
+# Alias' {{{
+alias vi="vim"
+alias r="source ~/.zshrc"
+alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session
+alias tmuxsrc="tmux source-file ~/.tmux.conf"
+alias tmuxkillall="tmux ls | cut -d : -f 1 | xargs -I {} tmux kill-session -t {}" # tmux kill all sessions
+alias ct="ctags -R --exclude=.git --exclude=node_modules"
+alias dotfiles="ls -a | grep '^\.' | grep --invert-match '\.DS_Store\|\.$'"
+# }}}

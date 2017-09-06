@@ -53,6 +53,11 @@ function title {
   echo -ne "\033]0;"$*"\007"
 }
 
+# VSINSTALLDIR: wine path to your Visual Studio installation
+export VSINSTALLDIR='Z:\\Users\\thomas\\prj\\Microsoft Visual Studio 8'
+# IWFM_3PTY: unix path to iWFM third party
+export IWFM_3PTY="/Users/thomas/prj/3PTY"
+#
 # Customize to your needs...
 
 autoload -Uz promptinit

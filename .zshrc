@@ -57,6 +57,11 @@ i() {
   done
   command i "$@"
 }
+# for local WP development:
+alias wp="docker-compose run --rm wp-cli"
+
+# elixir shims
+export PATH=~/.exenv/shims:$PATH
 
 # # kubectl
 # kprod () { kubectl --context prod "$@" }

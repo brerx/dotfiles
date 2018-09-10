@@ -12,6 +12,9 @@ bindkey -e
 
 export DATABASE_URL="postgres://postgres:@localhost:5432"
 
+#workaround for ansible under HighSierra
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"

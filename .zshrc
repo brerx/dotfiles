@@ -70,6 +70,9 @@ prompt paradox
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
 # Tmux {{{
 # Makes creating a new tmux session (with a specific name) easier
 function tmuxopen() {

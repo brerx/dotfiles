@@ -43,7 +43,7 @@ map <ScrollWheelDown> <C-E>
 color dracula
 
 if exists('+colorcolumn')
-        let &colorcolumn="120"
+        let &colorcolumn="80"
         highlight ColorColumn ctermbg=236
 endif
 

@@ -51,6 +51,16 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+" no arrows any more
+nnoremap <Up> :echo "Use home row, for fuck's sake"<CR>
+nnoremap <Down> :echo "Use home row, for fuck's sake"<CR>
+nnoremap <Left> :echo "Use home row, for fuck's sake"<CR>
+nnoremap <Right> :echo "Use home row, for fuck's sake"<CR>
+inoremap <Up> :echo "Get the fuck out of INSERT mode!"<CR>
+inoremap <Down> :echo "Get the fuck out of INSERT mode!"<CR>
+inoremap <Left> :echo "Get the fuck out of INSERT mode!"<CR>
+inoremap <Right> :echo "Get the fuck out of INSERT mode!"<CR>
+
 let g:ackprg = 'ag --vimgrep'
 
 function! Carousel()

@@ -42,9 +42,9 @@ alias ll='ls -la'
 # mxe for cmake cross compilation
 export PATH=~/prj/source/mxe/usr/bin:$PATH
 
-# kubectl
-kprod () { kubectl --context prod "$@" }
-kstag () { kubectl --context staging "$@" }
+# # kubectl
+# kprod () { kubectl --context prod "$@" }
+# kstag () { kubectl --context staging "$@" }
 
 # global aliases
 alias -g gp='| grep -i'

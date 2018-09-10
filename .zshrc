@@ -25,6 +25,8 @@ export LANG=en_US.UTF-8
 source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # aliases
+alias kubes="kubectl --context=staging-185"
+alias kubep="kubectl --context=production-186"
 alias bert="bundle exec rake -T"
 alias ber="bundle exec rake"
 alias bertest="bundle exec rake test"

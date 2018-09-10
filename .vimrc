@@ -193,6 +193,8 @@ highlight SpecialKey ctermbg=none ctermfg=238
 au! BufRead,BufNewFile */*.cpp setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
 au! BufRead,BufNewFile */*.hpp setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
 au! BufRead,BufNewFile */*.h setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
+au! BufRead,BufNewFile */*.go setlocal shiftwidth=2 tabstop=2 softtabstop=2 noexpandtab
+
 
 " Syntastic settings
 set statusline+=%#warningmsg#

@@ -46,8 +46,17 @@ alias release="grep -m 1 --colour=never 'build-' ~/prj/source/iwfm-pkg/CHANGELOG
 alias ls='ls -GFh'
 alias ll='ls -la'
 
-# mxe for cmake cross compilation
-export PATH=~/prj/source/mxe/usr/bin:$PATH
+i() {
+  local arr=($@)
+  for i in {1..$#} ; do
+    if test "$@[i]" = 'cd' ; then
+      arr[$i]=dir
+      cd "$(command i $arr)"
+      return
+    fi
+  done
+  command i "$@"
+}
 
 # # kubectl
 # kprod () { kubectl --context prod "$@" }

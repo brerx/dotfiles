@@ -249,6 +249,11 @@ else
   set clipboard=unnamedplus
 endif
 
+highlight ALEError ctermfg=15 ctermbg=52
+highlight ALEErrorSign ctermfg=52 ctermbg=15
+highlight ALEWarning ctermfg=15 ctermbg=17
+highlight ALEWarningSign ctermfg=15 ctermbg=17
+
 nnoremap <leader>r :ALEFindReferences<CR>
 nnoremap <leader>d :TsuDefinition<CR>
 "todo: ale or tsu

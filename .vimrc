@@ -258,7 +258,7 @@ highlight ALEWarning ctermfg=15 ctermbg=17
 highlight ALEWarningSign ctermfg=15 ctermbg=17
 
 nnoremap <leader>r :ALEFindReferences<CR>
-nnoremap <leader>d :TsuDefinition<CR>
+nnoremap <leader>d :ALEGoToDefinition<CR>
 "todo: ale or tsu
 " rename
 " search in files

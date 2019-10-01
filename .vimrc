@@ -130,6 +130,9 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 map <Leader>nf :NERDTreeFind<CR>
 
+" ignore vim swap files
+let NERDTreeIgnore = ['\.sw[p|o|n|m]']
+
 " Close NERD Tree when everything else is closed.
 " disabled for convenience, if closing all is desired, enter :qa
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

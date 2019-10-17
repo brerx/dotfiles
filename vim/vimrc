@@ -243,3 +243,4 @@ source $HOME/prj/source/dotfiles/vim/nerd-tree.vim
 source $HOME/prj/source/dotfiles/vim/coc.vim
 
 highlight CursorLine ctermbg=235
+source /Users/thomas/.dotfiles/vim/vimrc

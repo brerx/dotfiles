@@ -64,7 +64,8 @@ set printoptions=paper:letter
 
 set backupdir=/tmp//,.
 set directory=/tmp//,.
-set undodir=/tmp//,.
+set undofile
+set undodir=~/.vim/undodir
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 
@@ -76,10 +77,19 @@ set cursorline
 set scrolloff=15
 
 " speed up scrolling
+set synmaxcol=200
 set lazyredraw
 set ttyfast
-set regexpengine=1
+set regexpengine=0
 set nofoldenable
+set foldmethod=manual
+set completeopt-=preview
+
+set wildmenu
+
+" Move focus to newly created splits
+set splitbelow
+set splitright
 
 " Enable TOC window auto-fit
 let g:vim_markdown_toc_autofit = 1
@@ -179,6 +189,66 @@ if executable('ag')
 
   nnoremap , :Ag<SPACE>
 endif
+
+" NERDTree File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('exs', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('ex', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('rb', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('vim', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('sh', 'Magenta', 'none', '#ff00ff', '#151515')
+
+let g:NERDCustomDelimiters = { 'javascript.tsx': { 'left': '//', 'leftAlt': '{/*', 'rightAlt': '*/}' } }
+let g:NERDCustomDelimiters = { 'typescript.tsx': { 'left': '//', 'leftAlt': '{/*', 'rightAlt': '*/}' } }
+let g:NERDTreeWinSize=50
+
+" Set syntax scheme to json and format it (by using python, make sure it is installed)
+command Json set syntax=json | execute '%!python -m json.tool'
+
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#left_sep = '|'
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let airline#extensions#tabline#tabs_label = ''
+let airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_theme='lcars'
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline_powerline_fonts = 1
+"
+" Disable branch info in airline footer
+let g:airline_section_b = ''
+
+let g:ctrlsf_auto_close = {
+      \ "normal" : 0,
+      \ "compact": 0
+      \}
+let g:ctrlsf_default_view_mode = 'compact'
+
+let test#strategy = "vimux"
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeQuitOnOpen = 1
+let NERDTreeShowHidden = 1
+
+" ignore vim swap files
+let NERDTreeIgnore = ['\.sw.', '.DS_Store']
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -296,6 +366,26 @@ endfunction
 " Use nicer hl colors
 " hi Search ctermbg=226 ctermfg=0
 hi Search cterm=NONE ctermfg=black ctermbg=yellow
+
+set scrolloff=15
+set sidescrolloff=15
+
+" in markdown mode, don't hide any symbols that control formatting
+set conceallevel=0
+
+function! SourceSelection() range
+  let tmp_file = tempname()
+  call writefile(getline(a:firstline, a:lastline), l:tmp_file)
+  execute "source " . l:tmp_file
+  call delete(l:tmp_file)
+endfunction
+command! -range Source <line1>,<line2>call SourceSelection()
+
+" open all folds in MD files
+augroup md_folds
+  au!
+  autocmd BufRead *.md :normal zR
+augroup END
 
 " tab symbol
 set listchars=tab:⇢\ ,nbsp:⎵

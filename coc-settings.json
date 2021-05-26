@@ -1,0 +1,19 @@
+{
+  "suggest.noselect": false,
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
+  "python.jediEnabled": false,
+  "codeLens.enable": true,
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "javascript.suggestionActions.enabled": false,
+  "solargraph.formatting": true,
+  "solargraph.autoformat": true,
+  "solargraph.hover": true,
+  "solargraph.diagnostics": true
+}
+

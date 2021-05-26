@@ -1,112 +1,133 @@
 let mapleader = "\<space>"
 
-map <Leader>n :NERDTreeFind<CR>
+" Remap Ctrl+C to Escape to ensure triggering InsertLeave
+noremap <C-c> <esc>
+inoremap <C-c> <esc><esc>
+inoremap jj <esc><esc>
+nnoremap <leader>jj <esc>
+inoremap jk <esc><esc>
+nnoremap <leader>jk <esc>
 
-" no arrow keys in edit mode
-inoremap <Left> <nop>
-inoremap <Right> <nop>
-" do not disable them here to allow them for autocompletion navigation
-"inoremap <Up> <nop>
-"inoremap <Down> <nop>
 nnoremap <Leader>w <C-w>
-" nnoremap <Enter> O<Esc>j
-
-map <Leader>t :CtrlP<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>. :CtrlPTag<CR>
-" map <Leader>i :TsuImport<CR>
-
-" To open a new empty buffer
-" This replaces :tabnew which I used to bind to this mapping
-" nmap <leader>T :enew<cr>
 " Move to the next buffer
-nmap <leader>l :bnext<CR>
+nnoremap <leader>l :bnext<CR>
 " Move to the previous buffer
-nmap <leader>h :bprevious<CR>
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
-nmap <leader>bq :bp <BAR> bd #<CR>
-" Show all open buffers and their status
-nmap <leader>bl :ls<CR>
+nnoremap <leader>h :bprevious<CR>
+" nnoremap <leader>b :ls<cr>:b<space>
+" nnoremap <leader>B :ls!<cr>:b<space>
+nnoremap <Leader>q :bd<CR>
+nnoremap <Leader>Q :%bd\|e#\|bd#<CR>
+nnoremap <Leader>bd :Bdelete other<CR>
 
-" inoremap <expr> <CR>       pumvisible()    ? "\<C-y>"                  : "\<CR>"
-inoremap <expr> <Down>     pumvisible()    ? "\<C-n>"                  : ""
-inoremap <expr> <Up>       pumvisible()    ? "\<C-p>"                  : ""
-inoremap <expr> <PageDown> pumvisible()    ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible()    ? "\<PageUp>\<C-p>\<C-n>"   : "\<PageUp>"
+nnoremap <Leader>/ :History/<CR>
+nnoremap <Leader>: :History:<CR>
+nnoremap <Leader>o :Files<CR>
+nnoremap <Leader>of :Files<CR>
+nnoremap <Leader>og :GFiles?<CR>
+nnoremap <Leader>ob :Buffers<CR>
+nnoremap <Leader>ol :Lines<CR>
+nnoremap <Leader>p :GFiles<CR>
+nnoremap <Leader>P :History<CR>
+nnoremap <Leader>; :Commands<CR>
 
-" Allow us to use Ctrl-s and Ctrl-q as keybinds
-silent !stty -ixon
+nnoremap <Leader>q :bd<CR>
+nnoremap <leader><BS> :noh<cr>
 
-" Restore default behaviour when leaving Vim.
-autocmd VimLeave * silent !stty ixon
+nnoremap H ^
+vnoremap H ^
+nnoremap L $
+vnoremap L $
 
-" nmap <C-f> :ALEFix<CR>:TsuQuickFix<CR>
-" imap <C-f> <C-o>:ALEFix<CR>:TsuQuickFix<CR>
+cnoremap W w
 
-" nnoremap <leader>r :ALEFindReferences<CR>
-" nnoremap <leader>d :ALEGoToDefinition<CR>
-"todo: ale or tsu
-" rename
-" search in files
+nnoremap <leader>s :w<CR>
+nnoremap <leader>S :wa<CR>
 
-" vim-fugitive & gv
+nnoremap <leader>- <C-o><CR>
+nnoremap <leader>+ <C-i><CR>
+
+" Enter // to search for currently visually selected block
+" Hint: enter :g/ (short for :g//p) to list all  occurences in the current file
+vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
+
 nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd :Gvdiffsplit<CR>
 nnoremap <leader>gl :GV<CR>
-nnoremap <leader>gf :GV!<CR>
-nmap <leader>k <Plug>(GitGutterPrevHunk)
-nmap <leader>j <Plug>(GitGutterNextHunk)
-nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
-nmap <leader>ghs <Plug>(GitGutterStageHunk)
-vmap <leader>ghs <Plug>(GitGutterStageHunk)
+nnoremap <leader>glf :GV!<CR>
+nnoremap <leader>k <Plug>(GitGutterPrevHunk)
+nnoremap <leader>j <Plug>(GitGutterNextHunk)
+nnoremap <leader>ghp <Plug>(GitGutterPreviewHunk)
+nnoremap <leader>ghs <Plug>(GitGutterStageHunk)
+vnoremap <leader>ghs <Plug>(GitGutterStageHunk)
 
-" vim-test
-nnoremap <leader>tn :TestNearest<CR>
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>tl :TestLast<CR>
-nnoremap <leader>tv :TestVisit<CR>
+" make search results appear in the middle of the screen
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * #zz
+nnoremap # *zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+function! NERDTreeSmartToggle()
+  if @% == ""
+    NERDTreeToggleVCS
+  elseif (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+    NERDTreeClose
+  else
+    NERDTreeFind
+  endif
+endfun
+
+nnoremap <silent> <leader>n :call NERDTreeSmartToggle()<CR>
 
 " CtrlSF
-nmap     <leader>f <Plug>CtrlSFPrompt
-vmap     <leader>f <Plug>CtrlSFVwordExec
+nmap <leader>F :CtrlSF<CR>
+nmap <leader>f <Plug>CtrlSFPrompt
+vmap <leader>f <Plug>CtrlSFVwordExec
 
-" ranger
-nnoremap <leader>e :Ranger <CR>
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+" nnoremap <leader>h <Plug>AirlineSelectPrevTab
+" nnoremap <leader>l <Plug>AirlineSelectNextTab
 
-" coc------------------------------------------------------------------------
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-"inoremap <silent><expr> <TAB>
-      "\ pumvisible() ? "\<C-n>" :
-      "\ <SID>check_back_space() ? "\<TAB>" :
-      "\ coc#refresh()
-"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+nnoremap <leader>, :VimuxPromptCommand<cr>
+nnoremap <leader>vp :VimuxPromptCommand<cr>
+nnoremap <leader>vl :VimuxRunLastCommand<cr>
+nnoremap <leader>vi :VimuxInspectRunner<cr>
+nnoremap <leader>vz :VimuxZoomRunner<cr>:VimuxInspectRunner<cr>
 
-" Use tab to trigger snippets
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" vim-test
+nnoremap <leader>tn :w \| TestNearest<CR>
+nnoremap <leader>tf :w \| TestFile<CR>
+nnoremap <leader>tl :w \| TestLast<CR>
+nnoremap <leader>tv :TestVisit<CR>
+" List contents of all registers (that typically contain pasteable text) (from https://superuser.com/a/656954)
+nnoremap <silent> "" :registers 0123456789abcdefghijklmnopqrstuvwxyz<CR>
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+nnoremap <leader>u :UndotreeToggle \| UndotreeFocus<CR>
 
+" CoC config
 " Use <c-x> to trigger completion.
 inoremap <silent><expr> <c-x> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
 
 " Navigate diagnostics
-nmap <silent> <leader><S-k> <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader><S-j> <Plug>(coc-diagnostic-next)
+nnoremap <silent> <leader>K <Plug>(coc-diagnostic-prev)
+nnoremap <silent> <leader>J <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -114,8 +135,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
-nnoremap <silent> T :call <SID>show_documentation()<CR>
+" show info (like tooltip)
+nnoremap <silent> <leader>i :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -127,58 +148,53 @@ endfunction
 
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>rr <Plug>(coc-rename)
 
 " Remap for format selected region
 "xmap <leader>f  <Plug>(coc-format-selected)
 "nmap <leader>f  <Plug>(coc-format-selected)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xnoremap <leader>a  <Plug>(coc-codeaction-selected)
+nnoremap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <silent> <leader>ac  <Plug>(coc-codeaction)
+nnoremap <silent> <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <silent> <leader>.  <Plug>(coc-fix-current)
+nnoremap <silent> <leader>.  <Plug>(coc-fix-current)
 
-" Create mappings for function text object, requires document symbols feature of languageserver.
-"xmap if <Plug>(coc-funcobj-i)
-"xmap af <Plug>(coc-funcobj-a)
-"omap if <Plug>(coc-funcobj-i)
-"omap af <Plug>(coc-funcobj-a)
+nnoremap <silent> <leader>dr :%Source<cr>
+vnoremap <silent> <leader>dr :Source<cr>
 
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-"nmap <silent> <C-d> <Plug>(coc-range-select)
-"xmap <silent> <C-d> <Plug>(coc-range-select)
+" move the current line one down or up
+noremap <leader>- ddp
+noremap <leader>_ ddP
 
+" uppercase current word in insert mode !!!! <c-u> is scoll up!!!
+" inoremap <c-u> <esc>viwUi
+" nnoremap <c-u> viwU
 
-" Using CocList
-"" Show all diagnostics
-"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-"" Manage extensions
-"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-"" Show commands
-"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-"" Find symbol of current document
-"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-"" Search workspace symbols
-"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-"" Do default action for next item.
-"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-"" Do default action for previous item.
-"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-"" Resume latest coc list
-"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-" Type // to search for visually selected text
-vnoremap // y/<C-R>"<CR>
+" open vimrc in a new split
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-" Run currently open RSpec test file
-map <Leader>rf :w<CR>:!bundle exec rspec % --format documentation<CR>
+" source vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Run current RSpec test
-" RSpec can determine the right test to run as long as the cursor is somewhere within the test
-map <Leader>rl :w<CR>:exe "!bundle exec rspec %" . ":" . line(".")<CR>
+iabbrev adn and
+iabbrev waht what
+iabbrev tehn then
 
-" Run all RSpec tests
-map <Leader>rt :w<CR>:!bundle exec rspec --format documentation<CR>
+iabbrev @@ th.mueller87@gmail.com
+iabbrev ccopy Copyright 2021 Thomas Müller, all rights reserved.
+
+" iabbrev tpp .tap do |tmp| pp tap: tmp end
+
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap an( :<c-u>normal! f(va(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+onoremap al( :<c-u>normal! F)va(<cr>
+
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap an{ :<c-u>normal! f{va{<cr>
+onoremap il{ :<c-u>normal! F}vi{<cr>
+onoremap al{ :<c-u>normal! F}va{<cr>

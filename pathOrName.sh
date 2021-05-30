@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 pwd="$1"
 name="$2"
@@ -8,7 +8,7 @@ if [[ -n $name ]]
 then
     echo "$name"
 else
-    echo "$(basename "$pwd")"
+    basename "$pwd"
 fi
 
 

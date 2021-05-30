@@ -1,16 +1,16 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 lcarsDefaultBg=colour172
-lcarsDefaultLightBg=colour179
+# lcarsDefaultLightBg=colour179
 lcarsDefaultLighterBg=colour222
 lcarsDefaultFg=colour0
-lcarsAccentBg=colour32
+# lcarsAccentBg=colour32
 lcarsAccentFg=colour15
 
 {
     read -r state
     read -r value
-} <<< "$(source $HOME/prj/source/dotfiles/battery.osx.sh)"
+} <<< "$(source "$HOME"/prj/source/dotfiles/battery.osx.sh)"
 
 
 color="#[fg=$lcarsDefaultFg,bg=$lcarsDefaultLighterBg]"

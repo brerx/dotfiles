@@ -173,5 +173,10 @@ source "$HOME/.zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Setting rg as the default source for fzf (respects .gitgnore by default)
+export FZF_DEFAULT_COMMAND='rg --files'
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # overwrite precmd that sets the custom RPROMPT from tklepzig
 # precmd() {}

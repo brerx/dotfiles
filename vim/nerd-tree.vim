@@ -35,7 +35,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ignore vim swap files
-let NERDTreeIgnore = ['\.sw[p-z]$','\.DS_Store$']
+let NERDTreeIgnore = ['\.sw[o-z]$','\.DS_Store$']
 
 " Close NERD Tree when everything else is closed.
 " disabled for convenience, if closing all is desired, enter :qa

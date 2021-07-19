@@ -12,7 +12,7 @@ else
     then
       echo "VPN"
     else
-      device=$(networksetup -listnetworkserviceorder | grep $interface | sed -E -n 's/.*: (.*),.*/\1/p' | sed 's/USB 10\/100\/1000 //')
+      device=$(networksetup -listnetworkserviceorder | grep "$interface" | sed -E -n 's/.*: (.*),.*/\1/p' | sed 's/USB 10\/100\/1000 //')
       echo "$device"
     fi
 fi

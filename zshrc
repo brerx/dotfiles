@@ -37,7 +37,7 @@ source "$HOME/.logclirc"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-export DOCKER_BUILDKIT=0
+# export DOCKER_BUILDKIT=0
 # Powerline
 # source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 

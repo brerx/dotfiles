@@ -45,14 +45,14 @@ export LANG=en_US.UTF-8
 alias a="say -v 'Anna'"
 alias y="say -v 'Yuri'"
 alias b="bundle"
-alias be="bundle exec"
-alias bert="bundle exec rake test"
-alias bers="bundle exec rake spec"
-alias ber="bundle exec rake"
-alias beru="bundle exec rake unit"
-alias beri="bundle exec rake integration"
-alias berui="bundle exec rake unit integration"
-alias beg="bundle exec guard"
+alias be="b exec"
+alias bert="ENV=test RAILS_ENV=test RACK_ENV=test ber test"
+alias bers="ENV=test RAILS_ENV=test RACK_ENV=test ber spec"
+alias ber="be rake"
+alias beru="ENV=test RAILS_ENV=test RACK_ENV=test ber unit"
+alias beri="ENV=test RAILS_ENV=test RACK_ENV=test ber integration"
+alias berui="ENV=test RAILS_ENV=test RACK_ENV=test ber unit integration"
+alias beg="be guard"
 alias pret="rbprettier --write **/*.rb"
 alias brewup="brew update && brew upgrade && brew cleanup"
 alias br="br -s"
@@ -63,7 +63,7 @@ alias dcl="docker-compose logs -f"
 alias dcb="docker-compose build"
 alias dct="docker-compose run app test"
 alias dcbt="docker-compose build && docker-compose run app test"
-alias dp="docker system prune -f && docker rmi -f `docker images | awk '{print $3;}'`"
+alias dp="docker system prune -f && docker rmi -f `docker images | awk '{if (NR!=1) {print $3}}' | tr '\n' ' '`"
 alias gitalias="vim $HOME/.zprezto/modules/git/alias.zsh"
 alias src="cd ~/prj/source/"
 alias vimbash="vim ~/.bash_profile"
@@ -90,6 +90,12 @@ alias yolo='rm -rf node_modules/ && rm package-lock.json && yarn install'
 alias loki='~/bin/logcli-darwin-amd64'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign -m "--wip-- [skip ci]"'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
+alias t='tmux new-session -n ""'
+alias yarn1='cd $HOME && yarn set version 1.22.10 > /dev/null && echo "$(yarn -v)" && cd -'
+alias yarn2='cd $HOME && yarn set version berry > /dev/null && echo "$(yarn -v)" && cd -'
+alias vi="vim"
+alias vs="vim -S"
+alias ct="ctags -R --exclude=.git --exclude=node_modules"
 
 function ghi () {
   gh issue view https://github.com/ivx/injixo/issues/$1 --comments
@@ -126,6 +132,8 @@ zle -N edit-command-line
 # source ${HOME}/prj/source/dotfiles/zsh-lcars-theme.sh
 source ${HOME}/.bin/tmuxinator.zsh
 
+export SPACESHIP_USER_SHOW=false
+export SPACESHIP_HOST_SHOW=false
 export SPACESHIP_NODE_SHOW=false
 export SPACESHIP_DOCKER_SHOW=false
 export SPACESHIP_PACKAGE_SHOW=false
@@ -160,13 +168,6 @@ function tmuxkill() {
 }
 # }}}
 
-# Alias' {{{
-alias vi="vim"
-alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session
-alias tmuxkillall="tmux ls | cut -d : -f 1 | xargs -I {} tmux kill-session -t {}" # tmux kill all sessions
-alias ct="ctags -R --exclude=.git --exclude=node_modules"
-# }}}
-#
 # restore C-a and C-e for moving on line
 # bindkey -e
 source "$HOME/.zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh"

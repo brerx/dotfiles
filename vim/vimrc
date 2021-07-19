@@ -149,6 +149,10 @@ set hidden
 set omnifunc=syntaxcomplete#Complete
 set completeopt=noinsert,menuone,menu
 
+" Move focus to newly created splits
+set splitbelow
+set splitright
+
 if has('macunix')
   set clipboard=unnamed
 else

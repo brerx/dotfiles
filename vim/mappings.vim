@@ -8,6 +8,10 @@ nnoremap <leader>jj <esc>
 inoremap jk <esc><esc>
 nnoremap <leader>jk <esc>
 
+" move vertically by visual line with j and k
+nnoremap j gj
+nnoremap k gk
+
 nnoremap <Leader>w <C-w>
 " Move to the next buffer
 nnoremap <leader>l :bnext<CR>
@@ -124,10 +128,12 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 
+" Set syntax scheme to json and format it (by using python, make sure it is installed)
+command Json set syntax=json | execute '%!python -m json.tool'
 
 " Navigate diagnostics
-nnoremap <silent> <leader>K <Plug>(coc-diagnostic-prev)
-nnoremap <silent> <leader>J <Plug>(coc-diagnostic-next)
+" nnoremap <silent> <leader>K <Plug>(coc-diagnostic-prev)
+" nnoremap <silent> <leader>J <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -149,23 +155,23 @@ endfunction
 nnoremap <leader>wq :mksession!\|:qa<cr>
 
 " Remap for rename current word
-nnoremap <leader>rr <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-rename)
 
 " Remap for format selected region
 "xmap <leader>f  <Plug>(coc-format-selected)
 "nmap <leader>f  <Plug>(coc-format-selected)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xnoremap <leader>a  <Plug>(coc-codeaction-selected)
-nnoremap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nnoremap <silent> <leader>ac  <Plug>(coc-codeaction)
+nmap <silent> <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nnoremap <silent> <leader>.  <Plug>(coc-fix-current)
+nmap <silent> <leader>.  <Plug>(coc-fix-current)
 
-nnoremap <silent> <leader>dr :%Source<cr>
-vnoremap <silent> <leader>dr :Source<cr>
+nmap <silent> <leader>dr :%Source<cr>
+vmap <silent> <leader>dr :Source<cr>
 
 " move the current line one down or up
 noremap <leader>- ddp

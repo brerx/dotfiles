@@ -146,6 +146,7 @@ function! s:show_documentation()
   endif
 endfunction
 
+nnoremap <leader>wq :mksession!\|:qa<cr>
 
 " Remap for rename current word
 nnoremap <leader>rr <Plug>(coc-rename)

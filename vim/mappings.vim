@@ -4,9 +4,7 @@ let mapleader = "\<space>"
 noremap <C-c> <esc>
 inoremap <C-c> <esc><esc>
 inoremap jj <esc><esc>
-nnoremap <leader>jj <esc>
 inoremap jk <esc><esc>
-nnoremap <leader>jk <esc>
 
 " move vertically by visual line with j and k
 nnoremap j gj

@@ -152,6 +152,9 @@ let g:ctrlsf_auto_close = {
       \}
 let g:ctrlsf_default_view_mode = 'compact'
 
+let g:NERDCustomDelimiters = { 'javascript.tsx': { 'left': '// ', 'leftAlt': '{/* ', 'rightAlt': ' */}' } }
+let g:NERDCustomDelimiters = { 'typescript.tsx': { 'left': '// ', 'leftAlt': '{/* ', 'rightAlt': ' */}' } }
+
 " Use nicer hl colors
 " hi Search ctermbg=226 ctermfg=0
 hi Search cterm=NONE ctermfg=black ctermbg=yellow

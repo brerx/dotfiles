@@ -18,6 +18,12 @@ call plug#begin('~/.vim/vim-plug')
   Plug 'plasticboy/vim-markdown'
   " Plug 'scrooloose/nerdcommenter'
   Plug 'scrooloose/nerdtree'
+  Plug 'junegunn/vim-peekaboo'
+  
+  Plug 'alvan/vim-closetag'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'fladson/vim-kitty'
 
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'

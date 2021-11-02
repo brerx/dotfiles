@@ -56,11 +56,11 @@ nnoremap <leader>gs :G<CR>
 nnoremap <leader>gd :Gvdiffsplit<CR>
 nnoremap <leader>gl :GV<CR>
 nnoremap <leader>glf :GV!<CR>
-nnoremap <leader>k <Plug>(GitGutterPrevHunk)
-nnoremap <leader>j <Plug>(GitGutterNextHunk)
-nnoremap <leader>ghp <Plug>(GitGutterPreviewHunk)
-nnoremap <leader>ghs <Plug>(GitGutterStageHunk)
-vnoremap <leader>ghs <Plug>(GitGutterStageHunk)
+nmap <leader>k <Plug>(GitGutterPrevHunk)
+nmap <leader>j <Plug>(GitGutterNextHunk)
+nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
+nmap <leader>ghs <Plug>(GitGutterStageHunk)
+vmap <leader>ghs <Plug>(GitGutterStageHunk)
 
 " make search results appear in the middle of the screen
 nnoremap n nzz
@@ -81,6 +81,17 @@ function! NERDTreeSmartToggle()
 endfun
 
 nnoremap <silent> <leader>n :call NERDTreeSmartToggle()<CR>
+
+nnoremap <Leader>/ :History/<CR>
+nnoremap <Leader>: :History:<CR>
+nnoremap <Leader>o :Files<CR>
+nnoremap <Leader>of :Files<CR>
+nnoremap <Leader>og :GFiles?<CR>
+nnoremap <Leader>ob :Buffers<CR>
+nnoremap <Leader>ol :Lines<CR>
+nnoremap <Leader>p :GFiles<CR>
+nnoremap <Leader>P :History<CR>
+nnoremap <Leader>; :Commands<CR>
 
 " CtrlSF
 nmap <leader>F :CtrlSF<CR>
@@ -105,6 +116,8 @@ nnoremap <leader>vl :VimuxRunLastCommand<cr>
 nnoremap <leader>vi :VimuxInspectRunner<cr>
 nnoremap <leader>vz :VimuxZoomRunner<cr>:VimuxInspectRunner<cr>
 
+nnoremap <leader><Tab> :BufferNavigatorToggle<cr>
+
 " vim-test
 nnoremap <leader>tn :w \| TestNearest<CR>
 nnoremap <leader>tf :w \| TestFile<CR>
@@ -119,19 +132,30 @@ nnoremap <leader>u :UndotreeToggle \| UndotreeFocus<CR>
 " Use <c-x> to trigger completion.
 inoremap <silent><expr> <c-x> coc#refresh()
 
+" Use tab to trigger snippets
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Set syntax scheme to json and format it (by using python, make sure it is installed)
 command Json set syntax=json | execute '%!python -m json.tool'
 
 " Navigate diagnostics
-" nnoremap <silent> <leader>K <Plug>(coc-diagnostic-prev)
-" nnoremap <silent> <leader>J <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>K <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>J <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)

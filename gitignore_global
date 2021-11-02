@@ -6,3 +6,4 @@ launch.json
 *.sln
 *.vscode
 tags
+Session.vim

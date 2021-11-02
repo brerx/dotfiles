@@ -97,6 +97,7 @@ alias yarn2='cd $HOME && yarn set version berry > /dev/null && echo "$(yarn -v)"
 alias vi="vim"
 alias vs="vim -S"
 alias ct="ctags -R --exclude=.git --exclude=node_modules"
+alias mr="$HOME/prj/source/maintenance-helper/maintain-ruby.rb"
 
 function ghi () {
   gh issue view https://github.com/ivx/injixo/issues/$1 --comments

@@ -20,6 +20,7 @@ plugins=(docker)
 export RUBYOPT='-W0'
 
 export ASDF_RUBY_BUILD_VERSION=master
+export DEBUG_PRINT_LIMIT=10000
 
 export DATABASE_URL="postgres://postgres:postgres@localhost:5432"
 # export POSTGRES_URL="postgres://postgres:postgres@localhost:5432"
@@ -78,9 +79,9 @@ alias nginxconf="vim /Users/thomas/prj/source/local/nginx.conf"
 alias changelog="cd ~/prj/source/iwfm-pkg && git pull && cd - && vim ~/prj/source/iwfm-pkg/CHANGELOG.md"
 alias release="grep -m 1 --colour=never 'build-' ~/prj/source/iwfm-pkg/CHANGELOG.md"
 alias maik="netstat -anv | grep LISTEN"
-alias maikrabbitmq="netstat -anv | grep LISTEN | grep 5672"
-alias maikpostgres="netstat -anv | grep LISTEN | grep 5432"
-alias maikredis="netstat -anv | grep LISTEN | grep 6379"
+alias maikrabbitmq="maik | grep 5672"
+alias maikpostgres="maik | grep 5432"
+alias maikredis="maik | grep 6379"
 alias vimdel="find . -type f -name '*.sw[klmnop]' -delete"
 alias curl="/usr/bin/curl -A \"Thomas M. Macbook\" $@"
 alias ls='exa -lg'

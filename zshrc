@@ -7,6 +7,8 @@
 # eval "$(rbenv init -)"
 export TERM=xterm-256color
 export EDITOR=vim
+export ARCHFLAGS="-arch arm64"
+
 unset -v GEM_HOME # https://discourse.brew.sh/t/why-does-tmuxinator-sets-gem-home/7296/3
 # export GEM_HOME='$HOME/.asdf/plugins/ruby/lib/gems/'
 
@@ -26,13 +28,15 @@ export DATABASE_URL="postgres://postgres:postgres@localhost:5432"
 # export POSTGRES_URL="postgres://postgres:postgres@localhost:5432"
 # export DB_USER="postgres"
 
+export AWS_ACCESS_KEY_ID=`awk -F "=" '/aws_access_key_id/ {print $2}' ${HOME}/.aws/credentials |tail -1 | xargs`
+export AWS_SECRET_ACCESS_KEY=`awk -F "=" '/aws_secret_access_key/ {print $2}' ${HOME}/.aws/credentials |tail -1 | xargs`
+export AWS_SESSION_TOKEN=`awk -F "=" '/aws_session_token/ {print $2}' ${HOME}/.aws/credentials |tail -1 | xargs`
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-source "$HOME/.logclirc"
 
 # UTF-8 support
 export LC_ALL=en_US.UTF-8
@@ -66,7 +70,7 @@ alias dct="dc run app test"
 alias dcbt="docker-compose build && docker-compose run app test"
 alias dp="docker system prune -f && docker rmi -f `docker images | awk '{if (NR!=1) {print $3}}' | tr '\n' ' '`"
 alias gitalias="vim $HOME/.zprezto/modules/git/alias.zsh"
-alias src="cd ~/prj/source/"
+alias src="cd ~/source/"
 alias vimbash="vim ~/.bash_profile"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zprezto/runcoms/zshrc"
@@ -75,9 +79,9 @@ alias brewfile="vim ~/Brewfile"
 alias vimprezto="vim ~/.zpreztorc"
 alias readme="vim ./README.md"
 alias drainfile="vim ~/.drainfile"
-alias nginxconf="vim /Users/thomas/prj/source/local/nginx.conf"
-alias changelog="cd ~/prj/source/iwfm-pkg && git pull && cd - && vim ~/prj/source/iwfm-pkg/CHANGELOG.md"
-alias release="grep -m 1 --colour=never 'build-' ~/prj/source/iwfm-pkg/CHANGELOG.md"
+alias nginxconf="vim /Users/thomas/source/local/nginx.conf"
+alias changelog="cd ~/source/iwfm-pkg && git pull && cd - && vim ~/source/iwfm-pkg/CHANGELOG.md"
+alias release="grep -m 1 --colour=never 'build-' ~/source/iwfm-pkg/CHANGELOG.md"
 alias maik="netstat -anv | grep LISTEN"
 alias maikrabbitmq="maik | grep 5672"
 alias maikpostgres="maik | grep 5432"
@@ -97,23 +101,12 @@ alias yarn2='cd $HOME && yarn set version berry > /dev/null && echo "$(yarn -v)"
 alias vi="vim"
 alias vs="vim -S"
 alias ct="ctags -R --exclude=.git --exclude=node_modules"
-alias mr="$HOME/prj/source/maintenance-helper/maintain-ruby.rb"
+alias mr="$HOME/source/maintenance-helper/maintain-ruby.rb"
 
 function ghi () {
   gh issue view https://github.com/ivx/injixo/issues/$1 --comments
 }
 
-i() {
-  local arr=($@)
-  for i in {1..$#} ; do
-    if test "$@[i]" = 'cd' ; then
-      arr[$i]=dir
-      cd "$(command i $arr)"
-      return
-    fi
-  done
-  command i "$@"
-}
 
 # autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -131,8 +124,8 @@ compinit -i
 promptinit
 zle -N edit-command-line
 
-# source ${HOME}/prj/source/dotfiles/zsh-lcars-theme.sh
-source ${HOME}/.bin/tmuxinator.zsh
+# source ${HOME}/source/dotfiles/zsh-lcars-theme.sh
+# source ${HOME}/.bin/tmuxinator.zsh
 
 export SPACESHIP_USER_SHOW=false
 export SPACESHIP_HOST_SHOW=false
@@ -172,9 +165,10 @@ function tmuxkill() {
 
 # restore C-a and C-e for moving on line
 # bindkey -e
-source "$HOME/.zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
+# source "$HOME/.zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+zstyle ':completion:*:descriptions' format '[%d]'
 
 # Setting rg as the default source for fzf (respects .gitgnore by default)
 export FZF_DEFAULT_COMMAND='rg --files'

@@ -10,7 +10,7 @@ lcarsAccentFg=colour15
 {
     read -r state
     read -r value
-} <<< "$(source $HOME/prj/source/dotfiles/battery.osx.sh)"
+} <<< "$(source $HOME/source/dotfiles/battery.osx.sh)"
 
 
 color="#[fg=$lcarsDefaultFg,bg=$lcarsDefaultLighterBg]"

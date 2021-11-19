@@ -46,6 +46,6 @@ call plug#begin('~/.vim/vim-plug')
 
   Plug 'tklepzig/vim-buffer-navigator'
 
-  Plug 'SirVer/ultisnips'
+  " Plug 'SirVer/ultisnips'
   Plug 'mbbill/undotree'
 call plug#end()

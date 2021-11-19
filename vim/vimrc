@@ -113,7 +113,7 @@ autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 " let g:ackprg = 'ag --vimgrep'
 
-source $HOME/prj/source/dotfiles/vim/lcars.vim
+source $HOME/source/dotfiles/vim/lcars.vim
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
@@ -185,10 +185,10 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-source $HOME/prj/source/dotfiles/vim/mappings.vim
-source $HOME/prj/source/dotfiles/vim/nerd-tree.vim
-source $HOME/prj/source/dotfiles/vim/coc.vim
-source $HOME/prj/source/dotfiles/vim/plugins.vim
+source $HOME/source/dotfiles/vim/mappings.vim
+source $HOME/source/dotfiles/vim/nerd-tree.vim
+source $HOME/source/dotfiles/vim/coc.vim
+source $HOME/source/dotfiles/vim/plugins.vim
 
 colorscheme afterglow
 
